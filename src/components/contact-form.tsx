@@ -13,10 +13,11 @@ export function ContactForm() {
     setStatus("sending"); setError("");
     const form = event.currentTarget;
     const body = Object.fromEntries(new FormData(form).entries());
+    const apiBase = import.meta.env['VITE_CONTACT_API_URL'] ?? "/api/public/contact";
     try {
-      const response = await fetch("/api/public/contact", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-      const result = await response.json() as { error?: string };
-      if (!response.ok) throw new Error(result.error ?? "Message could not be sent.");
+      const response = await fetch(apiBase, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      const result = await response.json().catch(() => null) as { error?: string } | null;
+      if (!response.ok) throw new Error(result?.error ?? "Message could not be sent.");
       form.reset(); setStatus("success");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Message could not be sent."); setStatus("error");

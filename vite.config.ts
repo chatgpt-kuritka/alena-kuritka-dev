@@ -13,13 +13,29 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 const serverEnv = loadEnv(process.env['NODE_ENV'] ?? "development", process.cwd(), "");
 Object.assign(process.env, serverEnv);
 
+const ghPagesBase = process.env['GHPAGES_BASE']; // e.g. "/alena-kuritka-dev/"
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    pages: [
+      { path: "/" },
+      { path: "/portfolio" },
+      { path: "/portfolio/ara" },
+      { path: "/portfolio/bird" },
+      { path: "/portfolio/cat" },
+      { path: "/portfolio/hyacinth" },
+      { path: "/portfolio/illustration" },
+      { path: "/portfolio/paintings" },
+      { path: "/portfolio/pos" },
+      { path: "/portfolio/wolf" },
+    ],
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
   vite: {
+    base: ghPagesBase ?? "/",
     resolve: {
       alias: {
         "entities/lib/decode.js": path.resolve(import.meta.dirname, "node_modules/entities/lib/decode.js"),

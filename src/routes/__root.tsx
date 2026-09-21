@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
+import { LanguageProvider } from "@/lib/i18n";
+import { SiteFooter } from "@/components/site-footer";
 
 function NotFoundComponent() {
   return (
@@ -120,9 +122,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SiteHeader />
-      <Outlet />
-      <footer className="site-footer"><div className="shell"><span>© {new Date().getFullYear()} Alena Kuritka</span><a href="#top">Back to top ↑</a></div></footer>
+      <LanguageProvider>
+        <SiteHeader />
+        <Outlet />
+        <SiteFooter />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

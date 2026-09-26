@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Retail & Display (Retail & POS)
 
 - Category: Commercial design / Komerční design

@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Lone Wolf (Vlk samotář)
 
 - Category: Identity & merchandise / Identita & merchandise

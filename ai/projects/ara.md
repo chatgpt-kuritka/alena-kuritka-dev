@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Scarlet Macaw (Ara arakanga)
 
 - Category: Brand identity / Firemní identita

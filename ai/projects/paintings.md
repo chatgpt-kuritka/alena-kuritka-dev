@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Paintings (Malby)
 
 - Category: Fine art / Volná tvorba

@@ -1,0 +1,37 @@
+# Alena Kuritka
+
+> Portfolio of Alena Kuritka, graphic designer & illustrator; bilingual site (English default, Czech).
+
+Graphic design, illustration and visual work across cultural and commercial contexts. Contact: alenakuritka@gmail.com, +420 721 011 680.
+
+## Pages
+
+- [Home](https://alena.kuritka.com/): Hero, selected work, about, contact
+- [Portfolio](https://alena.kuritka.com/portfolio): All projects
+
+## Projects
+
+- [Scarlet Macaw](https://alena.kuritka.com/portfolio/ara): Brand identity
+- [Avian](https://alena.kuritka.com/portfolio/bird): Illustration & merchandise
+- [Feline](https://alena.kuritka.com/portfolio/cat): Illustration & merchandise
+- [Hyacinth Macaw](https://alena.kuritka.com/portfolio/hyacinth): Pattern & product design
+- [Narrative Works](https://alena.kuritka.com/portfolio/illustration): Editorial illustration
+- [Paintings](https://alena.kuritka.com/portfolio/paintings): Fine art
+- [Retail & Display](https://alena.kuritka.com/portfolio/pos): Commercial design
+- [Lone Wolf](https://alena.kuritka.com/portfolio/wolf): Identity & merchandise
+
+## AI-readable Markdown
+
+- [Overview](https://alena.kuritka.com/ai/overview.md): About and contact
+- [Portfolio index](https://alena.kuritka.com/ai/portfolio.md): Project list
+
+## Optional
+
+- [Scarlet Macaw (Markdown)](https://alena.kuritka.com/ai/projects/ara.md)
+- [Avian (Markdown)](https://alena.kuritka.com/ai/projects/bird.md)
+- [Feline (Markdown)](https://alena.kuritka.com/ai/projects/cat.md)
+- [Hyacinth Macaw (Markdown)](https://alena.kuritka.com/ai/projects/hyacinth.md)
+- [Narrative Works (Markdown)](https://alena.kuritka.com/ai/projects/illustration.md)
+- [Paintings (Markdown)](https://alena.kuritka.com/ai/projects/paintings.md)
+- [Retail & Display (Markdown)](https://alena.kuritka.com/ai/projects/pos.md)
+- [Lone Wolf (Markdown)](https://alena.kuritka.com/ai/projects/wolf.md)

@@ -30,7 +30,7 @@ export const Route = createFileRoute("/api/public/contact")({ server: { handlers
   POST: async ({ request }) => {
   const origin = request.headers.get("origin");
   if (origin) {
-    const allowed = ["https://alena.kuritka.com", "https://www.alena.kuritka.com", "https://chatgpt-kuritka.github.io"];
+    const allowed = ["https://alena.kuritka.com", "https://www.alena.kuritka.com", "https://dev.alena.kuritka.com", "https://chatgpt-kuritka.github.io"];
     if (!allowed.includes(origin)) return new Response("Forbidden", { status: 403 });
   }
   const contentLength = Number(request.headers.get("content-length") ?? "0");

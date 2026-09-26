@@ -95,6 +95,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "alternate", type: "text/plain", href: "/llms.txt", title: "llms.txt" },
+      { rel: "alternate", type: "text/markdown", href: "/ai/overview.md", title: "Site overview (Markdown)" },
     ],
   }),
   shellComponent: RootShell,

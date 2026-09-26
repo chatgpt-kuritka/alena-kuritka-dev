@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { LanguageProvider } from "@/lib/i18n";
 import { SiteFooter } from "@/components/site-footer";
+import { content } from "@/generated/content";
 
 function NotFoundComponent() {
   return (
@@ -80,9 +81,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alena Kuritka — Graphic Designer & Illustrator" },
-      { name: "description", content: "Graphic design and illustration by Alena Kuritka." },
-      { name: "author", content: "Alena Kuritka" },
+      { title: content.seo.home.title },
+      { name: "description", content: content.seo.default_description },
+      { name: "author", content: content.site.name },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Feline (Kočka)
 
 - Category: Illustration & merchandise / Ilustrace & merchandise

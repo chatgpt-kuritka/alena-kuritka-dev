@@ -1,18 +1,20 @@
-# Content layer
+# How to edit site content
 
-`content/` holds a Markdown + YAML-frontmatter mirror of the site's facts:
+**Edit only `content.md`** (project root). It holds everything: name, contact,
+EN/CS texts, SEO texts, About prose, portfolio order, featured projects,
+project titles/categories and image references.
 
-- `content/site.md` — name, role, contact
-- `content/about.md` — bio (EN/CS) and collaborations
-- `content/portfolio.md` — project order and featured list
-- `content/projects/<slug>.md` — titles/categories (EN/CS), cover, image asset paths
+1. Edit `content.md` (and add images under `src/assets/portfolio/<project>/` as
+   `.asset.json` pointers if needed; reference them by file name in `content.md`).
+2. Build (`bun run build`) or just run the dev server. Everything else is
+   regenerated automatically: website data, `public/llms.txt`, `public/ai/*.md`,
+   `public/sitemap.xml`, `public/robots.txt`, JSON-LD.
+3. If something is wrong (duplicate/missing slug, missing EN/CS text, missing
+   image, bad email/URL), the build stops and tells you exactly what to fix.
 
-Public AI/discovery files (production URLs, https://alena.kuritka.com):
-`public/llms.txt`, `public/ai/*.md`, `public/sitemap.xml`, `public/robots.txt`.
+Manual check: `bun run content`.
 
-**Status:** parallel canonical-content candidate. The React app still reads
-`src/lib/i18n.tsx` and `src/lib/portfolio.ts`. Any content change must update
-both places. A later migration can make Markdown the real source of truth.
+Generated files (start with "GENERATED … DO NOT EDIT") — never edit them:
+`src/generated/content.ts`, `public/llms.txt`, `public/ai/**`, `public/sitemap.xml`, `public/robots.txt`.
 
-Images are referenced by their existing `.asset.json` pointers; never duplicate binaries.
-llms.txt is an informal convention, not an official crawler directive.
+Image files starting with `_` are never shown. Production URLs use `site.production_url`.

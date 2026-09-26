@@ -1,3 +1,4 @@
+import { content } from "@/generated/content";
 import {
   Body,
   Container,
@@ -50,7 +51,7 @@ export const template = {
   component: ContactNotification,
   displayName: 'Contact form notification',
   subject: (data: Record<string, any>) => `New message from ${data['name'] ?? 'your website'}`,
-  to: 'alenakuritka@gmail.com',
+  to: content.site.email,
   previewData: {
     name: 'Jane Doe',
     email: 'jane@example.com',

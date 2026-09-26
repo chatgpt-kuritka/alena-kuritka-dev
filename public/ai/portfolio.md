@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Portfolio — Alena Kuritka
 
 Graphic design, illustration and visual work across cultural and commercial contexts.

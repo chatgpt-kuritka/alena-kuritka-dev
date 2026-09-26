@@ -7,6 +7,22 @@
 import path from "node:path";
 import { loadEnv } from "vite";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { generate, prerenderPaths } from "./scripts/generate-content.mjs";
+
+// content.md is the single source of truth: validate + regenerate derived files
+// before every dev start/build (an invalid content.md fails the build).
+generate(import.meta.dirname);
+const contentPlugin = {
+  name: "content-md",
+  configureServer(server: { watcher: { add: (f: string) => void; on: (e: string, cb: (f: string) => void) => void } }) {
+    server.watcher.add(path.resolve(import.meta.dirname, "content.md"));
+    server.watcher.on("change", (file: string) => {
+      if (file.endsWith("content.md")) {
+        try { generate(import.meta.dirname); } catch (e) { console.error(e); }
+      }
+    });
+  },
+};
 
 // Load all env vars (including non-VITE_ server secrets) into process.env for
 // server-side code only. These are never injected into the client bundle.
@@ -20,22 +36,12 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
-    pages: [
-      { path: "/" },
-      { path: "/portfolio" },
-      { path: "/portfolio/ara" },
-      { path: "/portfolio/bird" },
-      { path: "/portfolio/cat" },
-      { path: "/portfolio/hyacinth" },
-      { path: "/portfolio/illustration" },
-      { path: "/portfolio/paintings" },
-      { path: "/portfolio/pos" },
-      { path: "/portfolio/wolf" },
-    ],
+    pages: prerenderPaths(import.meta.dirname).map((p: string) => ({ path: p })),
     prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
   vite: {
     base: ghPagesBase ?? "/",
+    plugins: [contentPlugin],
     resolve: {
       alias: {
         "entities/lib/decode.js": path.resolve(import.meta.dirname, "node_modules/entities/lib/decode.js"),

@@ -3,12 +3,14 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { GalleryLightbox } from "@/components/lightbox";
 import { getProject, projects } from "@/lib/portfolio";
 import { useProjectLabels, useT } from "@/lib/i18n";
+import { fill, projectJsonLd } from "@/lib/seo";
+import { content } from "@/generated/content";
 export const Route = createFileRoute("/portfolio/$slug")({
   loader: ({ params }) => { const project = getProject(params.slug); if (!project) throw notFound(); return project; },
   head: ({ loaderData }) => ({ meta: loaderData ? [
-    { title: `${loaderData.title} — Alena Kuritka` }, { name: "description", content: `${loaderData.title}: ${loaderData.category.toLowerCase()} by graphic designer and illustrator Alena Kuritka.` },
-    { property: "og:title", content: `${loaderData.title} — Alena Kuritka` }, { property: "og:description", content: `${loaderData.category} project by Alena Kuritka.` }, { property: "og:type", content: "article" }, { name: "twitter:card", content: "summary_large_image" },
-  ] : [{ title: "Project not found — Alena Kuritka" }, { name: "robots", content: "noindex" }] }),
+    { title: fill(content.seo.project.title, loaderData) }, { name: "description", content: fill(content.seo.project.description, loaderData) },
+    { property: "og:title", content: fill(content.seo.project.title, loaderData) }, { property: "og:description", content: fill(content.seo.project.og_description, loaderData) }, { property: "og:type", content: "article" }, { name: "twitter:card", content: "summary_large_image" },
+  ] : [{ title: `Project not found — ${content.site.name}` }, { name: "robots", content: "noindex" }], scripts: loaderData ? [projectJsonLd(loaderData)] : [] }),
   component: ProjectPage,
   notFoundComponent: ProjectNotFound,
 });

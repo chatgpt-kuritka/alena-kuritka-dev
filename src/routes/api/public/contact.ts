@@ -1,3 +1,4 @@
+import { content } from "@/generated/content";
 import { createFileRoute } from "@tanstack/react-router";
 import { createHash } from "crypto";
 import { z } from "zod";
@@ -49,7 +50,7 @@ export const Route = createFileRoute("/api/public/contact")({ server: { handlers
   if (error) { console.error(`Contact message storage failed: ${error.message}`); return json({ error: "Message could not be sent. Please email me directly." }, origin, 500); }
   try {
     const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
-    await sendTemplateEmail("contact-notification", "alenakuritka@gmail.com", {
+    await sendTemplateEmail("contact-notification", content.site.email, {
       templateData: { name: parsed.data.name, email: parsed.data.email, phone: parsed.data.phone, message: parsed.data.message },
       idempotencyKey: `contact-notification-${inserted.id}`,
       replyTo: parsed.data.email,

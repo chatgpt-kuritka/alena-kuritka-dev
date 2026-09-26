@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Content layer: `content/*.md` and `public/ai/`, `public/llms.txt`, `public/sitemap.xml` mirror `src/lib/i18n.tsx` + `src/lib/portfolio.ts`; keep them in sync on every content change (see CONTENT.md). Why: parallel canonical content before a later Markdown migration.
+- Single source of truth: root `content.md` (YAML frontmatter + prose) → `scripts/generate-content.mjs` (run by vite.config.ts) generates `src/generated/content.ts`, `public/llms.txt`, `public/ai/**`, `public/sitemap.xml`, `public/robots.txt`; never hand-edit generated files or hardcode site text/facts in components. Why: no duplicated content.

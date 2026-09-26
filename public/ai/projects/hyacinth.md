@@ -1,3 +1,4 @@
+<!-- GENERATED from content.md by scripts/generate-content.mjs — DO NOT EDIT -->
 # Hyacinth Macaw (Ara hyacintový)
 
 - Category: Pattern & product design / Vzory & produktový design

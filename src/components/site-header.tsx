@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useLanguage, useT } from "@/lib/i18n";
+import { content } from "@/generated/content";
+const { site } = content;
 
 export function SiteHeader() {
   const { lang, setLang } = useLanguage();
@@ -8,9 +10,9 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <Link to="/" hash="top" className="brand" aria-label="Alena Kuritka — back to top">
-          <span className="monogram" aria-hidden="true">AK</span>
-          <span className="brand-name">Alena Kuritka</span>
+        <Link to="/" hash="top" className="brand" aria-label={`${site.name} — back to top`}>
+          <span className="monogram" aria-hidden="true">{site.monogram}</span>
+          <span className="brand-name">{site.name}</span>
         </Link>
         <nav className="site-nav" aria-label="Main navigation">
           <Link to="/" hash="portfolio">{t.nav.portfolio}</Link>

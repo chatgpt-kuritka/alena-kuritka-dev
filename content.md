@@ -140,7 +140,7 @@ projects:
     category:
       en: Brand identity
       cs: Firemní identita
-    folder: src/assets/portfolio/ara
+    folder: public/images/portfolio/ara
     cover: Hat - Front.jpg
     images:
       - file: BC_hyacint.jpg
@@ -177,7 +177,7 @@ projects:
     category:
       en: Illustration & merchandise
       cs: Ilustrace & merchandise
-    folder: src/assets/portfolio/bird
+    folder: public/images/portfolio/bird
     cover: bird4.png
     images:
       - file: Mug 2-52c35bbc7e3647989b70e3400bad1a9f.jpg
@@ -208,7 +208,7 @@ projects:
     category:
       en: Illustration & merchandise
       cs: Ilustrace & merchandise
-    folder: src/assets/portfolio/cat
+    folder: public/images/portfolio/cat
     cover: frame_cat.jpg
     images:
       - file: Mug 3.jpg
@@ -254,7 +254,7 @@ projects:
     category:
       en: Pattern & product design
       cs: Vzory & produktový design
-    folder: src/assets/portfolio/hyacinth
+    folder: public/images/portfolio/hyacinth
     cover: Canvas Bag Mockup 1.jpg
     images:
       - file: Canvas Bag Mockup 1.jpg
@@ -318,7 +318,7 @@ projects:
     category:
       en: Editorial illustration
       cs: Knižní a editoriální ilustrace
-    folder: src/assets/portfolio/illustration
+    folder: public/images/portfolio/illustration
     cover: book_yoona.jpg
     images:
       - file: alena2_book.jpg
@@ -352,7 +352,7 @@ projects:
     category:
       en: Fine art
       cs: Volná tvorba
-    folder: src/assets/portfolio/paintings
+    folder: public/images/portfolio/paintings
     cover: IMG_8404.jpg
     images:
       - file: IMG_8404.jpg
@@ -368,7 +368,7 @@ projects:
     category:
       en: Commercial design
       cs: Komerční design
-    folder: src/assets/portfolio/pos
+    folder: public/images/portfolio/pos
     cover: BloomBeauty_final.jpg
     images:
       - file: BloomBeauty_final.jpg
@@ -423,7 +423,7 @@ projects:
     category:
       en: Identity & merchandise
       cs: Identita & merchandise
-    folder: src/assets/portfolio/wolf
+    folder: public/images/portfolio/wolf
     cover: frame_wolf.jpg
     images:
       - file: T-Shirt_Front.jpg

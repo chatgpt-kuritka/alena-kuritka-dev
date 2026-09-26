@@ -58,16 +58,27 @@ export function loadContent(root) {
     else if (seen.has(p.slug)) errors.push(`${where}: duplicate slug`);
     seen.add(p?.slug);
     for (const lang of langs) { req(p?.title?.[lang], `${where}.title.${lang}`); req(p?.category?.[lang], `${where}.category.${lang}`); }
-    const pointer = (file) => {
-      const rel = `${p.folder}/${file}.asset.json`;
-      const abs = path.join(root, rel);
-      if (!fs.existsSync(abs)) { errors.push(`${where}: image not found: ${rel}`); return null; }
-      return JSON.parse(fs.readFileSync(abs, "utf8")).url;
+    // Images are referenced by source path (`folder` + `file`, relative to the
+    // project root, under public/). Only referenced assets are published; any
+    // other source asset is kept in the repo but never deployed.
+    const folder = String(p?.folder ?? "").replace(/\/+$/, "");
+    if (!folder.startsWith("public/")) errors.push(`${where}: folder must be a path under public/`);
+    const resolve = (file) => {
+      const rel = `${folder}/${file}`;
+      const hasBinary = fs.existsSync(path.join(root, rel));
+      // Implementation-only Lovable compatibility: the Lovable workspace stores
+      // binaries as CDN pointers under src/assets/<same path below public/images>.
+      const ptrRel = `src/assets/${rel.replace(/^public\/images\//, "")}.asset.json`;
+      const ptrAbs = path.join(root, ptrRel);
+      const pointer = fs.existsSync(ptrAbs) ? JSON.parse(fs.readFileSync(ptrAbs, "utf8")).url : null;
+      if (!hasBinary && !pointer) errors.push(`${where}: referenced image not found: ${rel}`);
+      return { source: rel, publicPath: rel.replace(/^public/, ""), pointer };
     };
     if (!Array.isArray(p?.images) || !p.images.length) errors.push(`${where}: no images`);
     const images = (p?.images ?? []).map((img, n) => {
       if (!(img.width > 0 && img.height > 0)) errors.push(`${where}: image ${img.file} needs width/height`);
-      return { file: img.file, src: pointer(img.file), width: img.width, height: img.height, alt: `${p.title?.en} \u2014 artwork ${n + 1}` };
+      const r = resolve(img.file);
+      return { file: img.file, source: r.source, pointer: r.pointer, src: encodeURI(r.publicPath), width: img.width, height: img.height, alt: `${p.title?.en} \u2014 artwork ${n + 1}` };
     });
     const cover = images.find((img) => img.file === p?.cover);
     if (!cover) errors.push(`${where}: cover "${p?.cover}" must be one of its images`);
@@ -93,7 +104,7 @@ function writeIfChanged(file, text) {
 export function generate(root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")) {
   const c = loadContent(root);
   const url = c.site.production_url;
-  const strip = ({ file, ...img }) => img;
+  const strip = ({ file, source, pointer, ...img }) => img;
   const runtime = {
     site: c.site,
     seo: c.seo,
@@ -103,6 +114,11 @@ export function generate(root = path.resolve(path.dirname(fileURLToPath(import.m
     projects: c.projects.map((p) => ({ slug: p.slug, title: p.title, category: p.category, cover: strip(p.cover), images: p.images.map(strip) })),
   };
   writeIfChanged(path.join(root, "src/generated/content.ts"), `// ${HEADER}\n/* eslint-disable */\nexport const content = ${JSON.stringify(runtime, null, 2)};\n`);
+  // Implementation-only Lovable preview compatibility (NOT authoritative): maps
+  // referenced public image paths to Lovable CDN pointers, used by the
+  // /images/* fallback route only when the binary is absent from public/.
+  const pointers = Object.fromEntries(c.projects.flatMap((p) => p.images).filter((i) => i.pointer).map((i) => [decodeURI(i.src), i.pointer]).sort());
+  writeIfChanged(path.join(root, "src/generated/asset-pointers.ts"), `// ${HEADER}\n/* eslint-disable */\nexport const assetPointers: Record<string, string> = ${JSON.stringify(pointers, null, 2)};\n`);
 
   const pub = (rel, text) => writeIfChanged(path.join(root, "public", rel), text);
   const md = `<!-- ${HEADER} -->\n`;
@@ -187,6 +203,9 @@ Back to [portfolio index](${url}/ai/portfolio.md).
 }
 
 export const prerenderPaths = (root) => ["/", "/portfolio", ...loadContent(root).projects.map((p) => `/portfolio/${p.slug}`)];
+
+// Source paths (relative to project root) of every asset referenced by content.md.
+export const referencedAssets = (root) => [...new Set(loadContent(root).projects.flatMap((p) => p.images.map((i) => i.source)))].sort();
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const c = generate();
